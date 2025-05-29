@@ -1,22 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class TimeChecker : MonoBehaviour
 {
-    public TextMesh timeText;
+    public TextMeshProUGUI timeText;
+    public TextMeshProUGUI maxTimeText;
     public float curTime;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        timeText = GetComponent<TextMesh>();
-    }
+    public float maxTime;
 
     // Update is called once per frame
     void Update()
     {
         curTime += Time.deltaTime;
-        timeText.text = "TIME: " + ((int)curTime).ToString();
+        timeText.text = ((int)curTime).ToString() + "s";
+    }
+
+    public void SetMaxTime()
+    {
+        if (curTime > maxTime)
+        {
+            maxTime = curTime;
+            maxTimeText.text = ((int)maxTime).ToString() + "s";
+        }
     }
 }

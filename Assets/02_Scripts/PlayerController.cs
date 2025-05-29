@@ -40,8 +40,8 @@ public class PlayerController : MonoBehaviour
             if (curFuelAmount <= 0)
             {
                 curFuelAmount = 0;
-
             }
+            fuelSlider.value = CurFuelAmount / maxFuelAmount;
         }
     }
     public float fuelConsumeAmount;
@@ -51,12 +51,13 @@ public class PlayerController : MonoBehaviour
 
     public GameObject hitEffect;
     public GameObject itemGainEffect;
-    public TextMesh fuelText;
+    public Slider fuelSlider;
     public Transform hpBar;
 
     public GameObject groundParent;
     public List<GroundScrolling> groundScrollings = new();
     public bool isAlive;
+    public TimeChecker timeChecker;
 
     private void Start()
     {
@@ -91,7 +92,6 @@ public class PlayerController : MonoBehaviour
         Move(playerCurPos);
 
         ConsumeFuelConsistently();
-        fuelText.text = "Fuel : " + string.Format("{0:N1}", CurFuelAmount);
     }
 
     #region 이동 관련
@@ -144,7 +144,7 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("########### GAMEOVER ###########");
         isAlive = false;
-        SceneManager.LoadScene(0);
+        timeChecker.SetMaxTime();
     }
 
     void KillPlayerDueToFuel()
@@ -193,6 +193,7 @@ public class PlayerController : MonoBehaviour
         if (temp > fuelConsumeInterval)
         {
             AdjustFuelAmount(-0.1f * fuelConsumeAmount);
+
             temp = 0;
         }
 
