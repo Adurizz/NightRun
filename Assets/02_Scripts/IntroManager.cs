@@ -20,7 +20,12 @@ public class IntroManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Space)) 
         {
-            SceneManager.LoadScene(1);
+            MoveToGameScene();
         }
+    }
+
+    public void MoveToGameScene()
+    {
+        SceneManager.LoadScene(1);
     }
 }
